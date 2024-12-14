@@ -1,0 +1,35 @@
+public class Employee extends Person {  
+    private String employeeId;  
+    private String position;  
+
+    // 默认构造函数  
+    public Employee() {  
+        super();  
+        this.employeeId = "";  
+        this.position = "";  
+    }  
+
+    // 带参数的构造函数  
+    public Employee(String name, int age, String address, String employeeId, String position) {  
+        super(name, age, address);  
+        this.employeeId = employeeId;  
+        this.position = position;  
+    }  
+
+    // Getter 和 Setter 方法  
+    public String getEmployeeId() {  
+        return employeeId;  
+    }  
+
+    public void setEmployeeId(String employeeId) {  
+        this.employeeId = employeeId;  
+    }  
+
+    public String getPosition() {  
+        return position;  
+    }  
+
+    public void setPosition(String position) {  
+        this.position = position;  
+    }  
+}
