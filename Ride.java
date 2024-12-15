@@ -1,118 +1,88 @@
-import java.util.ArrayList;  
-import java.util.List;  
+import java.util.LinkedList;  
+import java.util.Queue;  
+import java.util.Iterator;  
 
 public class Ride implements RideInterface {  
-    private String rideName;  
-    private String rideType;  
-    private boolean isOpen;  
-    private Employee operator; // 主管理员  
+    private String rideName;   
+    private String rideType;   
+    private boolean isOpen;   
+    private Employee operator;   
+    private Queue<Visitor> queue; // 用于存储等待的游客  
+    private LinkedList<Visitor> rideHistory; // 用于存储乘坐历史  
 
-    private List<Visitor> queue; // 用于管理等待的游客  
-    private List<Visitor> history; // 用于管理乘坐记录  
-
-    // 默认构造函数  
-    public Ride() {  
-        this.rideName = "";  
-        this.rideType = "";  
-        this.isOpen = false;  
-        this.operator = null;  
-        this.queue = new ArrayList<>();  
-        this.history = new ArrayList<>();  
-    }  
-
-    // 带参数的构造函数  
     public Ride(String rideName, String rideType, boolean isOpen, Employee operator) {  
-        this.rideName = rideName;  
-        this.rideType = rideType;  
-        this.isOpen = isOpen;  
-        this.operator = operator;  
-        this.queue = new ArrayList<>();  
-        this.history = new ArrayList<>();  
+        this.rideName = rideName;   
+        this.rideType = rideType;   
+        this.isOpen = isOpen;   
+        this.operator = operator;   
+        this.queue = new LinkedList<>(); // 初始化队列  
+        this.rideHistory = new LinkedList<>(); // 初始化乘坐历史  
     }  
-
-    // Getter 和 Setter 方法  
-    public String getRideName() {  
-        return rideName;  
-    }  
-
-    public void setRideName(String rideName) {  
-        this.rideName = rideName;  
-    }  
-
-    public String getRideType() {  
-        return rideType;  
-    }  
-
-    public void setRideType(String rideType) {  
-        this.rideType = rideType;  
-    }  
-    
-    public boolean isOpen() {  
-        return isOpen;  
-    }  
-
-    public void setOpen(boolean open) {  
-        isOpen = open;  
-    }  
-
-    public Employee getOperator() {  
-        return operator;  
-    }  
-
-    public void setOperator(Employee operator) {  
-        this.operator = operator;  
-    }  
-
-    // 实现接口方法  
 
     @Override  
     public void addVisitorToQueue(Visitor visitor) {  
-        queue.add(visitor);  
+        queue.offer(visitor);  
+        System.out.println(visitor.getName() + " has been added to the queue.");  
     }  
 
     @Override  
     public void removeVisitorFromQueue(Visitor visitor) {  
-        queue.remove(visitor);  
+        if (queue.remove(visitor)) { // 从队列中移除指定的游客  
+            System.out.println(visitor.getName() + " has been removed from the queue.");  
+        } else {  
+            System.out.println(visitor.getName() + " is not in the queue.");  
+        }  
     }  
 
     @Override  
     public void printQueue() {  
-        System.out.println("Waiting visitors:");  
-        for (Visitor visitor : queue) {  
-            System.out.println(visitor.getName());  
+        if (queue.isEmpty()) {  
+            System.out.println("The queue is currently empty.");  
+        } else {  
+            System.out.println("Current Visitors in the queue:");  
+            for (Visitor visitor : queue) {  
+                System.out.println(visitor); // 假设 Visitor 类实现了 toString() 方法  
+            }  
         }  
     }  
 
     @Override  
     public void runOneCycle() {  
-        // 示例：运行一次循环，假设每次循环最多让一位游客乘坐  
         if (!queue.isEmpty()) {  
-            Visitor visitor = queue.remove(0);  
-            System.out.println(visitor.getName() + " is riding " + rideName);  
-            addVisitorToHistory(visitor);  
+            Visitor visitor = queue.poll(); // 从队列中获取并移除第一个游客  
+            rideHistory.add(visitor); // 将游客添加到乘坐历史  
+            System.out.println(visitor.getName() + " is riding the " + rideName + ".");  
+        } else {  
+            System.out.println("No visitors in the queue to ride.");  
         }  
     }  
 
     @Override  
     public void addVisitorToHistory(Visitor visitor) {  
-        history.add(visitor);  
+        rideHistory.add(visitor);  
+        System.out.println(visitor.getName() + " has been added to the ride history.");  
     }  
 
     @Override  
     public boolean checkVisitorFromHistory(Visitor visitor) {  
-        return history.contains(visitor);  
+        return rideHistory.contains(visitor);  
     }  
 
     @Override  
     public int numberOfVisitors() {  
-        return history.size();  
+        return rideHistory.size();  
     }  
 
     @Override  
     public void printRideHistory() {  
-        System.out.println("Ride history:");  
-        for (Visitor visitor : history) {  
-            System.out.println(visitor.getName());  
+        if (rideHistory.isEmpty()) {  
+            System.out.println("No visitors have taken this ride.");  
+        } else {  
+            System.out.println("Visitors who have taken the ride:");  
+            Iterator<Visitor> iterator = rideHistory.iterator();  
+            while (iterator.hasNext()) {  
+                System.out.println(iterator.next()); // 假设 Visitor 类实现了 toString() 方法  
+            }  
         }  
     }  
 }
