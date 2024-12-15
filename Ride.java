@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;  
 import java.io.BufferedWriter;  
 import java.io.FileWriter;  
+import java.io.BufferedReader;  
+import java.io.FileReader; 
 import java.io.IOException;  
 
 
@@ -127,7 +129,7 @@ public class Ride implements RideInterface {
         Collections.sort(rideHistory, comparator);  
         System.out.println("Ride history sorted.");  
     }  
-    
+
     public void exportRideHistory(String filename) {  
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {  
             for (Visitor visitor : rideHistory) {  
@@ -137,6 +139,30 @@ public class Ride implements RideInterface {
             System.out.println("Ride history exported successfully to " + filename);  
         } catch (IOException e) {  
             System.err.println("Error writing to file: " + e.getMessage());  
+        }  
+    }  
+    
+    public void importRideHistory(String filename) {  
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {  
+            String line;  
+            while ((line = reader.readLine()) != null) {  
+                String[] details = line.split(","); // 假设游客信息以逗号分隔  
+                if (details.length == 5) {  
+                    String name = details[0].split(": ")[1].trim();  
+                    int age = Integer.parseInt(details[1].split(": ")[1].trim());  
+                    String address = details[2].split(": ")[1].trim();  
+                    String id = details[3].split(": ")[1].trim();  
+                    String visitorType = details[4].split(": ")[1].trim();  
+                    
+                    Visitor visitor = new Visitor(name, age, address, id, visitorType);  
+                    rideHistory.add(visitor); // 加入到乘坐历史中  
+                    System.out.println(visitor.getName() + " has been imported from the file.");  
+                } else {  
+                    System.out.println("Invalid visitor details: " + line);  
+                }  
+            }  
+        } catch (IOException e) {  
+            System.err.println("Error reading the file: " + e.getMessage());  
         }  
     }  
 }

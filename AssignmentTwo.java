@@ -125,4 +125,21 @@ public class AssignmentTwo {
         String filename = "ride_history.txt";  
         ride.exportRideHistory(filename);  
     }
+    public void partSeven() {  
+        Employee operator = new Employee("John Doe", "Operator");  
+        Ride ride = new Ride("摩天轮", "观光", true, operator, 30);  
+    
+        // 导入乘坐历史  
+        String filename = "ride_history.txt"; // 确保这个文件已经存在  
+        ride.importRideHistory(filename);  
+    
+        // 打印乘坐的游客数量  
+        System.out.println("Number of visitors in ride history: " + ride.rideHistory.size());  
+    
+        // 打印所有游客的信息  
+        System.out.println("Visitors in ride history:");  
+        for (Visitor visitor : ride.rideHistory) {  
+            System.out.println(visitor);  
+        }  
+    }
 }
