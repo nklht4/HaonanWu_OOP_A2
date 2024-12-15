@@ -3,6 +3,11 @@ import java.util.Queue;
 import java.util.Iterator;  
 import java.util.Collections;  
 import java.util.Comparator;  
+import java.io.BufferedWriter;  
+import java.io.FileWriter;  
+import java.io.IOException;  
+
+
 
 public class Ride implements RideInterface {  
     private String rideName;   
@@ -10,7 +15,7 @@ public class Ride implements RideInterface {
     private boolean isOpen;   
     private Employee operator;   
     private Queue<Visitor> queue; // 用于存储等待的游客  
-    private LinkedList<Visitor> rideHistory; // 用于存储乘坐历史  
+    LinkedList<Visitor> rideHistory; // 用于存储乘坐历史  
     private int maxRider; // 每次骑行的最大游客数量  
     private int numOfCycles; // 骑行次数
 
@@ -121,5 +126,17 @@ public class Ride implements RideInterface {
     public void sortRideHistory(Comparator<Visitor> comparator) {  
         Collections.sort(rideHistory, comparator);  
         System.out.println("Ride history sorted.");  
+    }  
+    
+    public void exportRideHistory(String filename) {  
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {  
+            for (Visitor visitor : rideHistory) {  
+                writer.write(visitor.toString());  
+                writer.newLine();  
+            }  
+            System.out.println("Ride history exported successfully to " + filename);  
+        } catch (IOException e) {  
+            System.err.println("Error writing to file: " + e.getMessage());  
+        }  
     }  
 }

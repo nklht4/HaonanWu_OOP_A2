@@ -109,4 +109,20 @@ public class AssignmentTwo {
         System.out.println("Visitors who have taken the ride:");  
         ride.printRideHistory();  
     }
+    public void partSix() {  
+        // 创建新的 Ride 对象  
+        Employee operator = new Employee("John Doe", "Operator");  
+        Ride ride = new Ride("过山车", "刺激", true, operator, 10);
+    
+        // 添加游客到乘坐历史  
+        for (int i = 1; i <= 5; i++) {  
+            Visitor visitor = new Visitor("Visitor " + i, 20 + i, "地址 " + i, "T00" + i, "普通");  
+            ride.runOneCycle(); // 假设每个游客都已经乘坐过  
+            ride.rideHistory.add(visitor); // 将游客添加到乘坐历史  
+        }  
+    
+        // 导出乘坐历史到文件  
+        String filename = "ride_history.txt";  
+        ride.exportRideHistory(filename);  
+    }
 }
