@@ -12,7 +12,7 @@ public class AssignmentTwo {
     public void partFourA() {  
         // 创建新的 Ride 对象  
         Employee operator = new Employee("John Doe", "Operator");  
-        Ride ride = new Ride("过山车", "刺激", true, operator);  
+        Ride ride = new Ride("过山车", "刺激", true, operator, 10);  
     
         // 添加游客到历史记录  
         Visitor visitor1 = new Visitor("Alice", 25, "123 Street", "T001", "普通");  
@@ -48,7 +48,7 @@ public class AssignmentTwo {
     public void partFourB() {  
         // 创建新的 Ride 对象  
         Employee operator = new Employee("John Doe", "Operator");  
-        Ride ride = new Ride("摩天轮", "休闲", true, operator);  
+        Ride ride = new Ride("摩天轮", "休闲", true, operator,30);  
     
         // 添加游客到该游乐设施  
         Visitor visitor1 = new Visitor("Ethan", 22, "1000 Main St", "T006", "普通");  
@@ -82,7 +82,31 @@ public class AssignmentTwo {
         System.out.println("Ride history after sorting:");  
         ride.printRideHistory();  
     }
+
+    public void partFive() {  
+        // 创建新的 Ride 对象  
+        Employee operator = new Employee("John Doe", "Operator");  
+        Ride ride = new Ride("过山车", "刺激", true, operator,10); // 最大游客数为 5  
+
+        // 添加游客到队列  
+        for (int i = 1; i <= 10; i++) {  
+            Visitor visitor = new Visitor("Visitor " + i, 20 + i, "地址 " + i, "T00" + i, "普通");  
+            ride.addVisitorToQueue(visitor);  
+        }  
+
+        // 打印当前排队的游客  
+        System.out.println("Visitors in the queue before running the ride:");  
+        ride.printQueue();  
+
+        // 运行一次骑乘  
+        ride.runOneCycle();  
+
+        // 打印当前排队的游客  
+        System.out.println("Visitors in the queue after running the ride:");  
+        ride.printQueue();  
+
+        // 打印乘坐历史  
+        System.out.println("Visitors who have taken the ride:");  
+        ride.printRideHistory();  
+    }
 }
-
-
-
