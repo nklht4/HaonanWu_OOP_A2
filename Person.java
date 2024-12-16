@@ -3,21 +3,21 @@ public abstract class Person {
     private int age;  
     private String address;  
 
-    // 默认构造函数  
+    // Default constructor
     public Person() {  
         this.name = "";  
         this.age = 0;  
         this.address = "";  
     }  
 
-    // 带参数的构造函数  
+    // A constructor with arguments
     public Person(String name, int age, String address) {  
         this.name = name;  
         this.age = age;  
         this.address = address;  
     }  
 
-    // Getter 和 Setter 方法  
+    // Getter and Setter methods
     public String getName() {  
         return name;  
     }  

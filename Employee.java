@@ -2,19 +2,19 @@ public class Employee {
     private String name;  
     private String role;  
 
-    // 默认构造函数  
+    // Default constructor 
     public Employee() {  
         this.name = "";  
         this.role = "";  
     }  
 
-    // 带参数的构造函数  
+    // A constructor with arguments  
     public Employee(String name, String role) {  
         this.name = name;  
         this.role = role;  
     }  
 
-    // Getter 和 Setter 方法  
+    // Getter and Setter methods 
     public String getName() {  
         return name;  
     }  

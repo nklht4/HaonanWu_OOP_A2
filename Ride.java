@@ -16,32 +16,32 @@ public class Ride implements RideInterface {
     private String rideType;   
     private boolean isOpen;   
     private Employee operator;   
-    private Queue<Visitor> queue; // 用于存储等待的游客  
-    LinkedList<Visitor> rideHistory; // 用于存储乘坐历史  
-    private int maxRider; // 每次骑行的最大游客数量  
-    private int numOfCycles; // 骑行次数
+    private Queue<Visitor> queue; // Used to store waiting visitors  
+    LinkedList<Visitor> rideHistory; // Used to store ride history
+    private int maxRider; // Maximum number of visitors per ride  
+    private int numOfCycles; // Number of rides
 
     public Ride(String rideName, String rideType, boolean isOpen, Employee operator, int maxRider) {  
         this.rideName = rideName;   
         this.rideType = rideType;   
         this.isOpen = isOpen;   
         this.operator = operator;   
-        this.queue = new LinkedList<>(); // 初始化队列  
-        this.rideHistory = new LinkedList<>(); // 初始化乘坐历史  
-        this.maxRider = maxRider; // 设置最大游客数量  
-        this.numOfCycles = 0; // 初始化骑行次数
+        this.queue = new LinkedList<>(); // Initialize queue
+        this.rideHistory = new LinkedList<>(); // Initializes the ride history 
+        this.maxRider = maxRider; // Set a maximum number of visitors
+        this.numOfCycles = 0; // Initialize the number of rides
     }  
     
 
     
-    // 添加游客到队列  
+    // Add visitors to queue
     @Override  
     public void addVisitorToQueue(Visitor visitor) {  
         queue.offer(visitor);  
         System.out.println(visitor.getName() + " has been added to the queue.");  
     }  
 
-    // 从队列中移除特定游客  
+    // Remove a specific visitor from the queue
     @Override  
     public void removeVisitorFromQueue(Visitor visitor) {  
         if (queue.remove(visitor)) {  
@@ -51,7 +51,7 @@ public class Ride implements RideInterface {
         }  
     }  
 
-    // 打印当前排队的游客  
+    // Print the current queue of visitors
     @Override  
     public void printQueue() {  
         if (queue.isEmpty()) {  
@@ -64,7 +64,7 @@ public class Ride implements RideInterface {
         }  
     }  
 
-    // 运行一次骑乘  
+    // Run a ride 
     @Override  
     public void runOneCycle() {  
         if (operator == null) {  
@@ -77,40 +77,40 @@ public class Ride implements RideInterface {
             return;  
         }  
 
-        // 计算此次骑行的游客数量  
+        // Count the number of tourists on the ride  
         int ridersThisCycle = Math.min(maxRider, queue.size());  
         System.out.println("Running the ride for " + ridersThisCycle + " visitors.");  
 
         for (int i = 0; i < ridersThisCycle; i++) {  
-            Visitor visitor = queue.poll(); // 从队列中移除游客  
-            rideHistory.add(visitor); // 将游客添加到乘坐历史  
+            Visitor visitor = queue.poll(); // Remove visitors from the queue
+            rideHistory.add(visitor); // Add guests to ride history
             System.out.println(visitor.getName() + " has taken the ride.");  
         }  
 
-        numOfCycles++; // 增加骑行次数  
+        numOfCycles++; // Increase cycling
         System.out.println("The ride has been run " + numOfCycles + " times.");  
     }  
 
-    // 将游客添加到乘坐历史  
+    // Add guests to ride history
     @Override  
     public void addVisitorToHistory(Visitor visitor) {  
         rideHistory.add(visitor);  
         System.out.println(visitor.getName() + " has been added to the ride history.");  
     }  
 
-    // 检查游客是否在乘坐历史中  
+    // Check if the guest is in the ride history 
     @Override  
     public boolean checkVisitorFromHistory(Visitor visitor) {  
         return rideHistory.contains(visitor);  
     }  
 
-    // 返回乘坐历史中的游客数量  
+    // Return the number of visitors in the ride history 
     @Override  
     public int numberOfVisitors() {  
         return rideHistory.size();  
     }  
 
-    // 打印乘坐历史  
+    // Print ride history
     @Override  
     public void printRideHistory() {  
         if (rideHistory.isEmpty()) {  
@@ -124,7 +124,7 @@ public class Ride implements RideInterface {
         }  
     }  
 
-    // 按照指定比较器对乘坐历史进行排序  
+    // Sort the ride history by the specified comparator  
     public void sortRideHistory(Comparator<Visitor> comparator) {  
         Collections.sort(rideHistory, comparator);  
         System.out.println("Ride history sorted.");  
@@ -146,7 +146,7 @@ public class Ride implements RideInterface {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {  
             String line;  
             while ((line = reader.readLine()) != null) {  
-                String[] details = line.split(","); // 假设游客信息以逗号分隔  
+                String[] details = line.split(","); // Suppose visitor information is separated by commas
                 if (details.length == 5) {  
                     String name = details[0].split(": ")[1].trim();  
                     int age = Integer.parseInt(details[1].split(": ")[1].trim());  
@@ -155,7 +155,7 @@ public class Ride implements RideInterface {
                     String visitorType = details[4].split(": ")[1].trim();  
                     
                     Visitor visitor = new Visitor(name, age, address, id, visitorType);  
-                    rideHistory.add(visitor); // 加入到乘坐历史中  
+                    rideHistory.add(visitor); // Join the ride history
                     System.out.println(visitor.getName() + " has been imported from the file.");  
                 } else {  
                     System.out.println("Invalid visitor details: " + line);  

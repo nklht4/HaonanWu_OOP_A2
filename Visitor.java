@@ -2,28 +2,28 @@ public class Visitor extends Person {
     private String visitorId;  
     private String membershipType;  
 
-    // 默认构造函数  
+    // Default constructor  
     public Visitor() {  
-        super(); // 调用父类构造函数  
+        super(); // Call the parent class constructor 
         this.visitorId = "";  
         this.membershipType = "";  
     }  
 
-    // 带参数的构造函数（五个参数）  
+    // Constructor with arguments (five arguments)  
     public Visitor(String name, int age, String address, String visitorId, String membershipType) {  
-        super(name, age, address); // 调用父类构造函数  
+        super(name, age, address); // Call the parent class constructor
         this.visitorId = visitorId;  
         this.membershipType = membershipType;  
     }  
 
-    // 新增的构造函数（三个参数）  
+    // New constructor (three arguments)  
     public Visitor(String name, int age, String address) {  
-        super(name, age, address); // 调用父类构造函数  
-        this.visitorId = ""; // 默认值  
-        this.membershipType = ""; // 默认值  
+        super(name, age, address); // Call the parent class constructor
+        this.visitorId = ""; 
+        this.membershipType = ""; 
     }  
 
-    // Getter 和 Setter 方法  
+    // Getter and Setter methods
     public String getVisitorId() {  
         return visitorId;  
     }  
@@ -40,7 +40,7 @@ public class Visitor extends Person {
         this.membershipType = membershipType;  
     }  
 
-    // 重写 toString 方法  
+    // Override the toString method
     @Override  
     public String toString() {  
         return "Visitor{" +  

@@ -3,7 +3,7 @@ import java.util.Comparator;
 public class VisitorComparator implements Comparator<Visitor> {  
     @Override  
     public int compare(Visitor v1, Visitor v2) {  
-        // 按照名字排序，如果名字相同则按照年龄排序  
+        // Sort by name, or by age if the name is the same
         int nameComparison = v1.getName().compareTo(v2.getName());  
         if (nameComparison != 0) {  
             return nameComparison;  
